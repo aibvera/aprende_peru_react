@@ -1,11 +1,24 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-function Login({ validUsers }) {
+function Login({ validUsers, setCurrentUser }) {
+  const navigate = useNavigate();
+
+  // Navegación
+  const goToRegister = () => {
+    navigate('/register');
+  };
+  const goToLogin = () => {
+    navigate('/');
+  };
+
+  // Estados para el formulario
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginState, setLoginState] = useState('');
 
+  // Función para clic en login
   const handleSubmit = (e) => {
     e.preventDefault(); // evita recargar la página
 
@@ -15,12 +28,9 @@ function Login({ validUsers }) {
     );
 
     if (user) {
-      // Guarda usuario en sessionStorage
-      sessionStorage.setItem('user', JSON.stringify(user.nombre));
+      // Guarda usuario en el estado currentUser
+      setCurrentUser(user);
       setLoginState(`✅ Bienvenido, ${user.nombre}.`);
-      setTimeout(() => {
-        window.location.href = 'index.html'; // redirige a:
-      }, 1500);
     } else {
       setLoginState('❌ Usuario o contraseña inválido');
     }
@@ -59,7 +69,7 @@ function Login({ validUsers }) {
         <p id="login_state">{loginState}</p>
 
         <p>
-          ¿No tienes cuenta? <a href="registro.html">Regístrate</a>
+          ¿No tienes cuenta? <a onClick={goToRegister}>Regístrate</a>
         </p>
       </div>
     </main>
