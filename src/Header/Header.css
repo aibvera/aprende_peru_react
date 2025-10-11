@@ -5,6 +5,10 @@ header {
   background-color: var(--main-bg);
 }
 
+header a:hover {
+  cursor: pointer;
+}
+
 nav {
   width: inherit;
   display: flex;

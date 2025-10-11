@@ -19,7 +19,11 @@
 }
 
 html,
-body {
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  border: 0;
   height: 100%;
 }
 
@@ -27,13 +31,9 @@ a {
   text-decoration: none;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  border: 0;
+#root {
   display: grid;
   grid-template-rows: var(--header-height) 1fr var(--footer-height);
-  height: 100vh;
 }
 
 .poppins-regular {

@@ -1,17 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Menu.css';
 
-function Menu({ isOpen, onClose, user }) {
-  const [sessionUser, setSessionUser] = useState(null);
+function Menu({ isOpen, onClose, currentUser, setCurrentUser }) {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    setSessionUser(user ? user : null);
-  }, [user]);
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('user');
-    setSessionUser(null);
+  // Navegación
+  const goToRegister = () => {
+    navigate('/register');
     onClose(); // cierra el menú
+  };
+  const goToLogin = () => {
+    navigate('/');
+    onClose();
+  };
+
+  // Cierre de sesión
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setCurrentUser(null);
+    goToLogin();
+    onClose();
   };
 
   return (
@@ -29,21 +37,19 @@ function Menu({ isOpen, onClose, user }) {
           &times;
         </span>
 
-        {sessionUser ? (
+        {currentUser ? (
           <>
-            <p id="welcome-user">Bienvenido, {sessionUser}.</p>
+            <p>Bienvenido, {currentUser.nombre}.</p>
             <a href="index.html">Cursos</a>
-            <a href="contacto.html">Contacto</a>
-            <a href="#" id="logout-link" onClick={handleLogout}>
+            <a onClick={handleLogout}>
               Cerrar sesión
             </a>
           </>
         ) : (
           <>
             <a href="index.html">Cursos</a>
-            <a href="login.html">Inicia sesión</a>
-            <a href="registro.html">Regístrate</a>
-            <a href="contacto.html">Contacto</a>
+            <a onClick={goToLogin}>Inicia sesión</a>
+            <a onClick={goToRegister}>Regístrate</a>
           </>
         )}
       </div>

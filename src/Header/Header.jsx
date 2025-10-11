@@ -1,18 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Header.css'
 import Menu from './Menu/Menu.jsx'
 
-function Header() {
+function Header({ currentUser, setCurrentUser }) {
+
+  // Navegación
+  const navigate = useNavigate();
+  const goToRegister = () => {
+    navigate('/register');
+  };
+  const goToLogin = () => {
+    navigate('/');
+  };
+
+  // Estado de visibilidad de menú hamburguesa
   const [menuVisible, setMenuVisible] = useState(false);
   const toggleMenu = () => setMenuVisible(!menuVisible);
   const closeMenu = () => setMenuVisible(false);
-
-  const [sessionUser, setSessionUser] = useState(null);
-  useEffect(() => {
-    // Recupera el usuario del sessionStorage cuando se monta el componente
-    const storedUser = sessionStorage.getItem('user');
-    setSessionUser(storedUser ? JSON.parse(storedUser) : null);
-  }, []);
 
   return (
     <header>
@@ -24,20 +29,20 @@ function Header() {
         <div id="logo" className="poppins-bold">AprendePerú</div>
 
         <div className="auth-buttons" id="auth-buttons">
-          {sessionUser ? (
+          {currentUser ? (
             <>
-              <p className='poppins-regular'>Bienvenido, {sessionUser}.</p>
+              <p className='poppins-regular'>Bienvenido, {currentUser.nombre}.</p>
             </>
           ) : (
             <>
-              <a href="login.html"><div className="btn-login poppins-regular">Ingresar</div></a>
-              <a href="registro.html"><div className="btn-register poppins-regular">Registrarse</div></a>
+              <a onClick={goToLogin}><div className="btn-login poppins-regular">Ingresar</div></a>
+              <a onClick={goToRegister}><div className="btn-register poppins-regular">Registrarse</div></a>
             </>
           )}
         </div>
       </nav>
 
-      <Menu isOpen={menuVisible} onClose={closeMenu} user={sessionUser} />
+      <Menu isOpen={menuVisible} onClose={closeMenu} currentUser={currentUser} setCurrentUser={setCurrentUser} />
 
     </header>
   )
