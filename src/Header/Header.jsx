@@ -7,11 +7,15 @@ function Header({ currentUser, setCurrentUser }) {
 
   // Navegación
   const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate('/');
+  };
   const goToRegister = () => {
     navigate('/register');
   };
   const goToLogin = () => {
-    navigate('/');
+    navigate('/login');
   };
 
   // Estado de visibilidad de menú hamburguesa
@@ -26,7 +30,7 @@ function Header({ currentUser, setCurrentUser }) {
           &#9776;
         </div>
 
-        <div id="logo" className="poppins-bold">AprendePerú</div>
+        <div id="logo" className="poppins-bold" onClick={goToHome} style={{ cursor: 'pointer' }}>AprendePerú</div>
 
         <div className="auth-buttons" id="auth-buttons">
           {currentUser ? (

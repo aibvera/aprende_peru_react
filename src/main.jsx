@@ -6,6 +6,9 @@ import Header from './Header/Header.jsx';
 import Footer from './Footer/Footer.jsx';
 import Login from './Login/Login.jsx';
 import Register from './Register/Register.jsx';
+import Home from './Home/Home.jsx';
+import AllCourses from './AllCourses/AllCourses.jsx';
+import Cart from './Cart/Cart.jsx';
 
 function App() {
 
@@ -35,8 +38,11 @@ function App() {
       <BrowserRouter>
         <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
         <Routes>
-          <Route path="/" element={<Login validUsers={validUsers} setCurrentUser={setCurrentUser} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login validUsers={validUsers} setCurrentUser={setCurrentUser} />} />
           <Route path="/register" element={<Register validUsers={validUsers} setValidUsers={setValidUsers} />} />
+          <Route path="/cursos" element={<AllCourses />} />
+          <Route path="/carrito" element={<Cart />} />
         </Routes>
         <Footer />
       </BrowserRouter>
