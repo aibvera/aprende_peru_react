@@ -42,7 +42,7 @@ function App() {
           <Route path="/login" element={<Login validUsers={validUsers} setCurrentUser={setCurrentUser} />} />
           <Route path="/register" element={<Register validUsers={validUsers} setValidUsers={setValidUsers} />} />
           <Route path="/cursos" element={<AllCourses />} />
-          <Route path="/carrito" element={<Cart />} />
+          <Route path="/carrito" element={<Cart currentUser={currentUser} />} />
         </Routes>
         <Footer />
       </BrowserRouter>

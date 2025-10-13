@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
-function Cart() {
+function Cart({ currentUser }) {
+  const navigate = useNavigate();
   const [carrito, setCarrito] = useState([]);
   const [total, setTotal] = useState(0);
 
@@ -17,6 +19,13 @@ function Cart() {
 
   // Confirmar pedido
   const handleConfirmarPedido = () => {
+    // Verificar si el usuario está logeado
+    if (!currentUser) {
+      alert('Debes iniciar sesión para confirmar tu pedido.');
+      navigate('/login');
+      return;
+    }
+
     if (carrito.length === 0) {
       alert('Tu carrito está vacío 🛒');
       return;
@@ -54,10 +63,10 @@ function Cart() {
 
           <div className="cart-summary">
             <h3>Resumen del pedido</h3>
-            <div className="summary-row">
-              <span>Subtotal:</span>
+            {/*<div className="summary-row">
+              <span>Cupon de descuento:</span>
               <span>S/{total}</span>
-            </div>
+            </div>*/}
             <div className="summary-row total">
               <span>Total:</span>
               <span>S/{total}</span>
