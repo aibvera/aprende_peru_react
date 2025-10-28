@@ -5,12 +5,22 @@ function Menu({ isOpen, onClose, currentUser, setCurrentUser }) {
   const navigate = useNavigate();
 
   // Navegación
+  const goToHome = () => {
+    navigate('/');
+    onClose();
+  };
+
+  const goToCursos = () => {
+    navigate('/cursos');
+    onClose();
+  };
+
   const goToRegister = () => {
     navigate('/register');
     onClose(); // cierra el menú
   };
   const goToLogin = () => {
-    navigate('/');
+    navigate('/login');
     onClose();
   };
 
@@ -40,14 +50,16 @@ function Menu({ isOpen, onClose, currentUser, setCurrentUser }) {
         {currentUser ? (
           <>
             <p>Bienvenido, {currentUser.nombre}.</p>
-            <a href="index.html">Cursos</a>
+            {/*<a href="index.html">Cursos</a>*/}
+            <a onClick={goToCursos}>Cursos</a>
             <a onClick={handleLogout}>
               Cerrar sesión
             </a>
           </>
         ) : (
           <>
-            <a href="index.html">Cursos</a>
+            {/*<a href="index.html">Cursos</a>*/}
+            <a onClick={goToCursos}>Cursos</a>
             <a onClick={goToLogin}>Inicia sesión</a>
             <a onClick={goToRegister}>Regístrate</a>
           </>
